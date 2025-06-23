@@ -1,0 +1,9 @@
+# melos_managed_dependency_overrides: data,domain,shared,analyzer
+dependency_overrides:
+  data:
+    path: ../data
+  domain:
+    path: ../domain
+  shared:
+    path: ../shared
+  analyzer: 6.2.0

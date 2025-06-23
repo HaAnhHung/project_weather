@@ -1,0 +1,54 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="60" fill="url(#gradient1)"/>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#29B6F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.7" />
+    </linearGradient>
+    <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD54F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8F00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sun -->
+  <circle cx="75" cy="35" r="12" fill="url(#sunGradient)"/>
+  <!-- Sun rays -->
+  <g stroke="url(#sunGradient)" stroke-width="2" stroke-linecap="round">
+    <line x1="75" y1="18" x2="75" y2="14"/>
+    <line x1="89" y1="35" x2="93" y2="35"/>
+    <line x1="84.5" y1="24.5" x2="87.3" y2="21.7"/>
+    <line x1="84.5" y1="45.5" x2="87.3" y2="48.3"/>
+    <line x1="65.5" y1="24.5" x2="62.7" y2="21.7"/>
+  </g>
+  
+  <!-- Main Cloud -->
+  <g fill="url(#gradient2)">
+    <!-- Cloud base -->
+    <ellipse cx="45" cy="70" rx="25" ry="15"/>
+    <!-- Cloud bumps -->
+    <circle cx="25" cy="65" r="12"/>
+    <circle cx="40" cy="55" r="15"/>
+    <circle cx="60" cy="58" r="13"/>
+    <circle cx="75" cy="65" r="10"/>
+  </g>
+  
+  <!-- Rain drops -->
+  <g fill="#29B6F6" opacity="0.8">
+    <ellipse cx="35" cy="88" rx="2" ry="6"/>
+    <ellipse cx="50" cy="92" rx="2" ry="6"/>
+    <ellipse cx="65" cy="90" rx="2" ry="6"/>
+    <ellipse cx="42" cy="100" rx="1.5" ry="4"/>
+    <ellipse cx="58" cy="102" rx="1.5" ry="4"/>
+  </g>
+  
+  <!-- Weather text hint -->
+  <text x="60" y="115" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold" opacity="0.9">WEATHER</text>
+</svg>

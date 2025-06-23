@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/melos_app.iml" filepath="$PROJECT_DIR$/app/melos_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data/melos_data.iml" filepath="$PROJECT_DIR$/data/melos_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/melos_domain.iml" filepath="$PROJECT_DIR$/domain/melos_domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/initializer/melos_initializer.iml" filepath="$PROJECT_DIR$/initializer/melos_initializer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nals_lints/melos_nals_lints.iml" filepath="$PROJECT_DIR$/nals_lints/melos_nals_lints.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resources/melos_resources.iml" filepath="$PROJECT_DIR$/resources/melos_resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shared/melos_shared.iml" filepath="$PROJECT_DIR$/shared/melos_shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_project_weather.iml" filepath="$PROJECT_DIR$/melos_project_weather.iml" />
+    </modules>
+  </component>
+</project>

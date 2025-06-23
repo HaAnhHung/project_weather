@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      injectable_generator:injectable_builder:
+        enabled: true
+        options:
+          auto_register: true
+          # Generate for data layer with module
+          include:
+            - 'lib/src/di/di.dart'

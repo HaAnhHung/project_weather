@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "develop",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "cwd": "app",
+      "flutterMode": "debug",
+      "env": {
+        "PATH": "/Users/macbookair/flutter/bin:/opt/homebrew/bin:${env:PATH}"
+      },
+      "args": [
+        // "--flavor",
+        "develop"
+      ]
+    },
+    {
+      "name": "production",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "cwd": "app",
+      "flutterMode": "debug",
+      "env": {
+        "PATH": "/Users/macbookair/flutter/bin:/opt/homebrew/bin:${env:PATH}"
+      },
+      "args": [
+        "--flavor",
+        "production"
+      ]
+    }
+  ]
+}

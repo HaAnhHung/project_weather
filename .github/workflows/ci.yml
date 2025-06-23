@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master  
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      - name: Install melos
+        run: |
+          dart pub global activate melos 4.1.0
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Run build_runner (make sync)
+        run: make sync
+      
+      - name: Generate language
+        run: make l10n
+
+      - name: Run Unit Test
+        run: make test
+
+      - name: Check format
+        run: make format
+
+      - name: Run analyze app
+        run: make analyze_app
+      - name: Run analyze data
+        run: make analyze_data
+      - name: Run analyze domain
+        run: make analyze_domain
+      - name: Run analyze shared
+        run: make analyze_shared
+
+      - name: Run dart_code_metrics
+        run: make dart_code_metrics
+
+      - name: Run metrics_app
+        run: make metrics_app
+      - name: Run metrics_data
+        run: make metrics_data
+      - name: Run metrics_domain
+        run: make metrics_domain
+      - name: Run metrics_shared
+        run: make metrics_shared
+
+      - name: Check l10n
+        run: flutter gen-l10n --no-synthetic-package --arb-dir=app/lib/l10n --template-arb-file=app_en.arb --output-dir=app/lib/l10n
+
+      # Build develop APK only on develop branch
+      - name: Build apk (develop)
+        if: github.ref == 'refs/heads/develop'
+        working-directory: app
+        run: flutter build apk --flavor develop --release
+
+      - name: Upload APK artifact (develop)
+        if: github.ref == 'refs/heads/develop'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-develop-release-apk
+          path: app/build/app/outputs/flutter-apk/app-develop-release.apk
+
+      # Build production APK only on master branch
+      - name: Build apk (production)
+        if: github.ref == 'refs/heads/master'
+        working-directory: app
+        run: flutter build apk --flavor production --release
+
+      - name: Upload APK artifact (production)
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-production-release-apk
+          path: app/build/app/outputs/flutter-apk/app-production-release.apk

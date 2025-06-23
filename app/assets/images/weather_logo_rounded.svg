@@ -1,0 +1,71 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- iOS-style rounded rectangle background for in-app logo -->
+  <rect x="0" y="0" width="120" height="120" rx="26.8" ry="26.8" fill="url(#gradient1)"/>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#29B6F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0277BD;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+    </linearGradient>
+    <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD54F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8F00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sun (scaled down) -->
+  <circle cx="75" cy="35" r="12" fill="url(#sunGradient)"/>
+  <!-- Sun rays (scaled down) -->
+  <g stroke="url(#sunGradient)" stroke-width="2" stroke-linecap="round">
+    <line x1="75" y1="18" x2="75" y2="13"/>
+    <line x1="93" y1="35" x2="98" y2="35"/>
+    <line x1="87.3" y1="23" x2="90.8" y2="19.5"/>
+    <line x1="87.3" y1="47" x2="90.8" y2="50.5"/>
+    <line x1="62.7" y1="23" x2="59.2" y2="19.5"/>
+    <line x1="57" y1="35" x2="52" y2="35"/>
+    <line x1="62.7" y1="47" x2="59.2" y2="50.5"/>
+    <line x1="75" y1="52" x2="75" y2="57"/>
+  </g>
+  
+  <!-- Main Cloud (scaled and repositioned) -->
+  <g fill="url(#gradient2)">
+    <!-- Cloud base -->
+    <ellipse cx="45" cy="70" rx="26" ry="15"/>
+    <!-- Cloud bumps -->
+    <circle cx="24" cy="64" r="12"/>
+    <circle cx="40" cy="55" r="15"/>
+    <circle cx="58" cy="57" r="13"/>
+    <circle cx="75" cy="64" r="11"/>
+    <circle cx="82" cy="72" r="9"/>
+  </g>
+  
+  <!-- Rain drops (scaled down) -->
+  <g fill="#0277BD" opacity="0.7">
+    <ellipse cx="33" cy="89" rx="2" ry="6"/>
+    <ellipse cx="45" cy="91" rx="2" ry="6"/>
+    <ellipse cx="57" cy="90" rx="2" ry="6"/>
+    <ellipse cx="69" cy="92" rx="2" ry="6"/>
+    <ellipse cx="39" cy="98" rx="1.5" ry="5"/>
+    <ellipse cx="51" cy="99" rx="1.5" ry="5"/>
+    <ellipse cx="63" cy="98" rx="1.5" ry="5"/>
+    <ellipse cx="27" cy="96" rx="1.5" ry="5"/>
+    <ellipse cx="75" cy="99" rx="1.5" ry="5"/>
+  </g>
+  
+  <!-- Smaller decorative clouds (scaled) -->
+  <g fill="url(#gradient2)" opacity="0.6">
+    <ellipse cx="19" cy="42" rx="7" ry="4"/>
+    <circle cx="15" cy="40" r="4"/>
+    <circle cx="21" cy="39" r="4"/>
+    
+    <ellipse cx="94" cy="82" rx="8" ry="5"/>
+    <circle cx="89" cy="80" r="4"/>
+    <circle cx="99" cy="79" r="5"/>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+name: project_weather
+packages:
+  - app
+  - data
+  - domain
+  - shared
+  - resources
+  - initializer
+  - nals_lints
+
+scripts:
+  # Build scripts
+  sync: melos exec -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  build_all: melos exec -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  build_app: melos exec --scope=app -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  build_domain: melos exec --scope=domain -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  build_data: melos exec --scope=data -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  build_shared: melos exec --scope=shared -- "flutter pub run build_runner build --delete-conflicting-outputs"
+  
+  # Watch mode scripts
+  watch_all: melos exec -- "flutter pub run build_runner watch --delete-conflicting-outputs"
+  watch_app: melos exec --scope=app -- "flutter pub run build_runner watch --delete-conflicting-outputs"
+  watch_domain: melos exec --scope=domain -- "flutter pub run build_runner watch --delete-conflicting-outputs"
+  watch_data: melos exec --scope=data -- "flutter pub run build_runner watch --delete-conflicting-outputs"
+  watch_shared: melos exec --scope=shared -- "flutter pub run build_runner watch --delete-conflicting-outputs"
+  
+  # Localization
+  l10n: melos exec --scope=app -- "flutter gen-l10n"
+  
+  # Testing
+  test: melos exec -- "flutter test"
+  test_app: melos exec --scope=app -- "flutter test"
+  test_domain: melos exec --scope=domain -- "flutter test"
+  test_data: melos exec --scope=data -- "flutter test"
+  test_shared: melos exec --scope=shared -- "flutter test"
+  test_coverage: melos exec --scope=app -- "flutter test --coverage"
+  
+  # Code quality
+  format: melos exec -- "dart format . --set-exit-if-changed"
+  format_fix: melos exec -- "dart format ."
+  analyze: melos exec -- "flutter analyze ."
+  analyze_app: melos exec --scope=app -- "flutter analyze ."
+  analyze_data: melos exec --scope=data -- "flutter analyze ."
+  analyze_domain: melos exec --scope=domain -- "flutter analyze ."
+  analyze_shared: melos exec --scope=shared -- "flutter analyze ."
+  
+  # Metrics
+  dart_code_metrics: melos exec -- "dart run dart_code_metrics:metrics analyze ."
+  metrics_app: melos exec --scope=app -- "dart run dart_code_metrics:metrics analyze ."
+  metrics_data: melos exec --scope=data -- "dart run dart_code_metrics:metrics analyze ."
+  metrics_domain: melos exec --scope=domain -- "dart run dart_code_metrics:metrics analyze ."
+  metrics_shared: melos exec --scope=shared -- "dart run dart_code_metrics:metrics analyze ."
