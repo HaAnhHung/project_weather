@@ -1,3 +1,4 @@
+import 'package:app/resource/dimens/dimens.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,10 +35,10 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
         centerTitle: false,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 16.w),
+            margin: EdgeInsets.only(right: Dimens.d16.responsive()),
             child: IconButton(
               icon: Container(
-                padding: EdgeInsets.all(8.w),
+                padding: EdgeInsets.all(Dimens.d16.responsive()),
                 decoration: BoxDecoration(
                   color: Theme.of(
                     context,
@@ -47,7 +48,7 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                 child: Icon(
                   Icons.cloud_outlined,
                   color: Theme.of(context).colorScheme.primary,
-                  size: 20.sp,
+                  size: Dimens.d20.responsive(),
                 ),
               ),
               tooltip: l10n.weather,
@@ -70,11 +71,12 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                     // Header with Logo
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 24.h),
+                        padding: EdgeInsets.symmetric(vertical: Dimens.d24.responsive(),
+                        ),
                         child: Column(
                           children: [
-                            AppLogo(size: 60.w),
-                            SizedBox(height: 12.h),
+                            AppLogo(size: Dimens.d40.responsive()),
+                            SizedBox(height: Dimens.d12.responsive()),
                             Text(
                               l10n.title,
                               style: Theme.of(
@@ -171,7 +173,7 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                           subtitle: Text(l10n.viewCurrentWeather),
                           trailing: Icon(
                             Icons.arrow_forward_ios,
-                            size: 16.sp,
+                            size: Dimens.d16.responsive(),
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
@@ -182,7 +184,7 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                       ],
                     ),
 
-                    SizedBox(height: 16.h),
+                    SizedBox(height: Dimens.d16.responsive()),
 
                     // About & Information
                     ModernSettingsCard(
@@ -198,7 +200,7 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                           subtitle: Text(l10n.appInformation),
                           trailing: Icon(
                             Icons.arrow_forward_ios,
-                            size: 16.sp,
+                            size: Dimens.d16.responsive(),
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
@@ -209,7 +211,7 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                       ],
                     ),
 
-                    SizedBox(height: 32.h),
+                    SizedBox(height: Dimens.d32.responsive()),
                   ],
                 ),
               );
@@ -226,25 +228,27 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
       builder:
           (context) => AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(Dimens.d16.responsive()),
             ),
             title: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(8.w),
+                  padding: EdgeInsets.all(Dimens.d8.responsive()),
                   decoration: BoxDecoration(
                     color: Theme.of(
                       context,
                     ).colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(
+                      Dimens.d12.responsive(),
+                    ),
                   ),
                   child: Icon(
                     Icons.cloud,
                     color: Theme.of(context).colorScheme.primary,
-                    size: 24.sp,
+                    size: Dimens.d24.responsive(),
                   ),
                 ),
-                SizedBox(width: 16.w),
+                SizedBox(width: Dimens.d16.responsive()),
                 Text(
                   l10n.aboutWeatherApp,
                   style: Theme.of(
@@ -261,22 +265,24 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                   l10n.aboutContent,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: Dimens.d16.responsive()),
                 Container(
-                  padding: EdgeInsets.all(12.w),
+                  padding: EdgeInsets.all(Dimens.d12.responsive()),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surfaceContainerHighest
                         .withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(
+                      Dimens.d8.responsive(),
+                    ),
                   ),
                   child: Row(
                     children: [
                       Icon(
                         Icons.info_outline,
-                        size: 16.sp,
+                        size: Dimens.d16.responsive(),
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
-                      SizedBox(width: 8.w),
+                      SizedBox(width: Dimens.d8.responsive()),
                       Expanded(
                         child: Text(
                           'Version 1.0.0',
@@ -299,11 +305,13 @@ class _SettingsScreenState extends BasePageState<SettingsScreen, SettingsBloc> {
                 style: TextButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.primary,
                   padding: EdgeInsets.symmetric(
-                    horizontal: 24.w,
-                    vertical: 12.h,
+                    horizontal: Dimens.d24.responsive(),
+                    vertical: Dimens.d12.responsive(),
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(
+                      Dimens.d8.responsive(),
+                    ),
                   ),
                 ),
                 child: Text(l10n.close),

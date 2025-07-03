@@ -1,3 +1,5 @@
+import 'package:app/resource/dimens/app_dimen.dart';
+import 'package:app/resource/dimens/dimens.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,31 +21,38 @@ class _WeatherDetailScreenState
     extends BasePageState<WeatherDetailScreen, WeatherBloc> {
   @override
   Widget buildPage(BuildContext context) {
-    return CommonScaffold(
-      appBar: CommonAppBar(
-        title: widget.weather.city,
-        leadingIcon: LeadingIcon.back,
-        actions: [
-          IconButton(icon: const Icon(Icons.share), onPressed: _shareWeather),
-        ],
-      ),
-      body: BlocBuilder<SettingsBloc, SettingsState>(
-        bloc: GetIt.instance.get<SettingsBloc>(),
-        builder: (context, settingsState) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildMainWeatherCard(context, settingsState),
-                const SizedBox(height: 16),
-                _buildWeatherDetails(context),
-                const SizedBox(height: 16),
-                _buildActionButtons(context),
-              ],
-            ),
-          );
-        },
+    return BlocListener<AppBloc, AppState>(
+      listenWhen: (previous, current) => previous.locale != current.locale,
+      listener: (context, state) {
+        // When language changes, refresh weather data
+        bloc.add(WeatherEvent.fetchByCity(city: widget.weather.city));
+      },
+      child: CommonScaffold(
+        appBar: CommonAppBar(
+          title: widget.weather.city,
+          leadingIcon: LeadingIcon.back,
+          actions: [
+            IconButton(icon: const Icon(Icons.share), onPressed: _shareWeather),
+          ],
+        ),
+        body: BlocBuilder<SettingsBloc, SettingsState>(
+          bloc: GetIt.instance.get<SettingsBloc>(),
+          builder: (context, settingsState) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(Dimens.d16.responsive()),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildMainWeatherCard(context, settingsState),
+                  SizedBox(height: Dimens.d16.responsive()),
+                  _buildWeatherDetails(context),
+                  SizedBox(height: Dimens.d16.responsive()),
+                  _buildActionButtons(context),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -66,7 +75,7 @@ class _WeatherDetailScreenState
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: Dimens.d16.responsive()),
           Text(
             temperatureText,
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
@@ -74,7 +83,7 @@ class _WeatherDetailScreenState
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: Dimens.d8.responsive()),
           Text(
             widget.weather.description.toUpperCase(),
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -82,12 +91,13 @@ class _WeatherDetailScreenState
               letterSpacing: 1.2,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: Dimens.d16.responsive()),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: Dimens.d16.responsive(), vertical: Dimens.d8.responsive(),
+            ),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(Dimens.d20.responsive()),
             ),
             child: Text(
               '${widget.weather.date.day}/${widget.weather.date.month}/${widget.weather.date.year}',
@@ -104,7 +114,7 @@ class _WeatherDetailScreenState
 
   Widget _buildWeatherDetails(BuildContext context) {
     return CommonCard(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(Dimens.d16.responsive()),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -114,7 +124,7 @@ class _WeatherDetailScreenState
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: Dimens.d16.responsive()),
           _buildDetailRow(context, l10n.location, widget.weather.city),
           _buildDetailRow(context, l10n.condition, widget.weather.description),
           _buildDetailRow(
@@ -134,7 +144,7 @@ class _WeatherDetailScreenState
 
   Widget _buildDetailRow(BuildContext context, String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: Dimens.d12.responsive()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -163,7 +173,7 @@ class _WeatherDetailScreenState
           text: l10n.goToWeather,
           onPressed: () => _navigateToWeather(),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: Dimens.d12.responsive()),
         CommonButton.outlined(
           text: l10n.refreshWeather,
           onPressed: () => _refreshWeather(),

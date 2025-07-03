@@ -82,8 +82,7 @@ class CommonNetworkErrorWidget extends StatelessWidget {
 
     return CommonErrorWidget(
       title: l10n.error,
-      message:
-          'No internet connection. Please check your network and try again.',
+      message: l10n.noInternetConnection,
       onRetry: onRetry,
       retryText: retryText,
       icon: Icon(
@@ -107,7 +106,7 @@ class CommonTimeoutErrorWidget extends StatelessWidget {
 
     return CommonErrorWidget(
       title: l10n.error,
-      message: 'Request timeout. Please try again.',
+      message: l10n.requestTimeout,
       onRetry: onRetry,
       retryText: retryText,
       icon: Icon(

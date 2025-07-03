@@ -15,6 +15,7 @@ class WeatherEvent extends BaseBlocEvent with _$WeatherEvent {
   const factory WeatherEvent.unitChanged({required bool isCelsius}) =
       WeatherUnitChanged;
   const factory WeatherEvent.refresh() = WeatherRefresh;
+  const factory WeatherEvent.languageChanged() = WeatherLanguageChanged;
 
   // Forecast events
   const factory WeatherEvent.fetchForecast({required String city}) =

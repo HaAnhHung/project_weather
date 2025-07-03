@@ -322,6 +322,112 @@ clean_build: ## Clean and rebuild everything
 	$(call print_success,"Clean rebuild completed")
 
 # ==============================================================================
+# ADDITIONAL UTILITIES
+# ==============================================================================
+
+.PHONY: audit
+audit: ## Security audit for dependencies
+	$(call print_step,"Running security audit...")
+	@melos exec -- "flutter pub audit"
+	$(call print_success,"Security audit completed")
+
+.PHONY: outdated
+outdated: ## Check for outdated dependencies
+	$(call print_step,"Checking for outdated dependencies...")
+	@melos exec -- "flutter pub outdated"
+	$(call print_success,"Outdated check completed")
+
+.PHONY: deps
+deps: ## Show dependency tree
+	$(call print_step,"Showing dependency tree...")
+	@melos exec -- "flutter pub deps"
+	$(call print_success,"Dependency tree shown")
+
+.PHONY: install
+install: ## Install project (bootstrap + build)
+	$(call print_step,"Installing project...")
+	@melos clean
+	@melos bootstrap
+	@melos exec -- "flutter pub run build_runner build --delete-conflicting-outputs"
+	$(call print_success,"Project installation completed")
+
+.PHONY: reset
+reset: ## Reset project to clean state
+	$(call print_step,"Resetting project...")
+	@cd app && flutter clean
+	@melos clean
+	@melos exec -- "flutter pub run build_runner clean"
+	@rm -rf app/build
+	@rm -rf */build
+	@rm -rf */.dart_tool
+	@rm -rf */pubspec.lock
+	$(call print_success,"Project reset completed")
+
+.PHONY: build_web
+build_web: ## Build web application
+	$(call print_step,"Building web application...")
+	@cd app && flutter build web
+	$(call print_success,"Web application built successfully")
+
+.PHONY: build_appbundle
+build_appbundle: ## Build Android App Bundle
+	$(call print_step,"Building Android App Bundle...")
+	@cd app && flutter build appbundle
+	$(call print_success,"Android App Bundle built successfully")
+
+.PHONY: run_web
+run_web: ## Run app in web browser
+	$(call print_step,"Running app in web browser...")
+	@cd app && flutter run -d chrome
+	$(call print_success,"App started in web browser")
+
+.PHONY: devices
+devices: ## List available devices
+	$(call print_step,"Listing available devices...")
+	@flutter devices
+	$(call print_success,"Device list completed")
+
+.PHONY: emulators
+emulators: ## List available emulators
+	$(call print_step,"Listing available emulators...")
+	@flutter emulators
+	$(call print_success,"Emulator list completed")
+
+.PHONY: create_emulator
+create_emulator: ## Create new Android emulator
+	$(call print_step,"Creating new Android emulator...")
+	@flutter emulators --create
+	$(call print_success,"Emulator creation completed")
+
+.PHONY: logs
+logs: ## Show app logs
+	$(call print_step,"Showing app logs...")
+	@cd app && flutter logs
+	$(call print_success,"Logs displayed")
+
+.PHONY: clean_cache
+clean_cache: ## Clean Flutter cache
+	$(call print_step,"Cleaning Flutter cache...")
+	@flutter clean
+	@flutter pub cache clean
+	@flutter pub cache repair
+	$(call print_success,"Flutter cache cleaned")
+
+.PHONY: fix_gradle
+fix_gradle: ## Fix common Gradle issues
+	$(call print_step,"Fixing Gradle issues...")
+	@cd app/android && ./gradlew clean
+	@cd app/android && ./gradlew build
+	$(call print_success,"Gradle issues fixed")
+
+.PHONY: permissions
+permissions: ## Fix file permissions
+	$(call print_step,"Fixing file permissions...")
+	@chmod +x app/android/gradlew
+	@chmod +x *.sh
+	$(call print_success,"File permissions fixed")
+
+# ==============================================================================
 # DEVELOPMENT SHORTCUTS
 # ==============================================================================
 
@@ -333,6 +439,34 @@ fresh: clean_build run_dev ## Fresh start (clean + build + run)
 
 .PHONY: watch
 watch: build_watch ## Start watch mode for code generation
+
+.PHONY: setup
+setup: install l10n ## Complete project setup
+	$(call print_success,"Complete project setup finished")
+
+.PHONY: release
+release: clean pub_get build analyze test build_apk_release ## Full release build
+	$(call print_success,"Release build completed")
+
+.PHONY: hotfix
+hotfix: format_fix analyze_app test_app ## Quick hotfix workflow
+	$(call print_success,"Hotfix workflow completed")
+
+# ==============================================================================
+# COMPREHENSIVE WORKFLOWS
+# ==============================================================================
+
+.PHONY: full_check
+full_check: format analyze test metrics test_coverage ## Comprehensive code quality check
+	$(call print_success,"Full quality check completed")
+
+.PHONY: daily_check
+daily_check: outdated audit analyze test ## Daily maintenance check
+	$(call print_success,"Daily check completed")
+
+.PHONY: weekly_maintenance
+weekly_maintenance: upgrade full_check clean_cache ## Weekly maintenance
+	$(call print_success,"Weekly maintenance completed")
 
 # Default target
 .DEFAULT_GOAL := help

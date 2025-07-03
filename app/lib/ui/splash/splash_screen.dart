@@ -1,3 +1,13 @@
+/// 🚀 Splash Screen - Màn hình khởi động ứng dụng
+///
+/// Chức năng:
+/// - Hiển thị logo và loading animation
+/// - Yêu cầu permission location
+/// - Lấy vị trí hiện tại của user
+/// - Navigate to main weather screen
+
+import 'package:app/resource/dimens/app_dimen.dart';
+import 'package:app/resource/dimens/dimens.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,10 +18,15 @@ import 'bloc/splash_bloc.dart';
 import 'bloc/splash_event.dart';
 import 'bloc/splash_state.dart';
 
+/// Splash screen với Auto Route navigation
 @RoutePage()
 class SplashScreen extends StatefulWidget {
+  /// Callback khi location đã sẵn sàng
   final void Function(Position position)? onLocationReady;
+
+  /// Callback khi user từ chối permission
   final VoidCallback? onPermissionDenied;
+
   const SplashScreen({
     super.key,
     this.onLocationReady,
@@ -140,7 +155,7 @@ class _SplashScreenState extends BasePageState<SplashScreen, SplashBloc> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const CircularProgressIndicator(),
-              const SizedBox(height: 16),
+              SizedBox(height: Dimens.d16.responsive()),
               BlocBuilder<SplashBloc, SplashState>(
                 builder: (context, state) {
                   return Text(

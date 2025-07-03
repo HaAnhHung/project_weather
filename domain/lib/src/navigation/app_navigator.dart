@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:shared/shared.dart';
-
 import '../../domain.dart';
 
 abstract class AppNavigator {

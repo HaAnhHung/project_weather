@@ -24,6 +24,20 @@ scripts:
   watch_data: melos exec --scope=data -- "flutter pub run build_runner watch --delete-conflicting-outputs"
   watch_shared: melos exec --scope=shared -- "flutter pub run build_runner watch --delete-conflicting-outputs"
   
+  # Clean scripts
+  clean_all: melos exec -- "flutter clean"
+  clean_build: melos exec -- "flutter pub run build_runner clean"
+
+  # Dependencies management
+  pub_get_all: melos bootstrap
+  pub_upgrade: melos exec -- "flutter pub upgrade"
+  pub_outdated: melos exec -- "flutter pub outdated"
+  pub_deps: melos exec -- "flutter pub deps"
+
+  # Security and maintenance
+  audit: melos exec -- "flutter pub audit"
+  doctor: flutter doctor -v
+
   # Localization
   l10n: melos exec --scope=app -- "flutter gen-l10n"
   
@@ -34,7 +48,10 @@ scripts:
   test_data: melos exec --scope=data -- "flutter test"
   test_shared: melos exec --scope=shared -- "flutter test"
   test_coverage: melos exec --scope=app -- "flutter test --coverage"
-  
+  test_unit: melos exec -- "flutter test test/unit"
+  test_widget: melos exec --scope=app -- "flutter test test/widget"
+  test_integration: melos exec --scope=app -- "flutter test integration_test"
+
   # Code quality
   format: melos exec -- "dart format . --set-exit-if-changed"
   format_fix: melos exec -- "dart format ."
@@ -50,3 +67,53 @@ scripts:
   metrics_data: melos exec --scope=data -- "dart run dart_code_metrics:metrics analyze ."
   metrics_domain: melos exec --scope=domain -- "dart run dart_code_metrics:metrics analyze ."
   metrics_shared: melos exec --scope=shared -- "dart run dart_code_metrics:metrics analyze ."
+
+  # App building
+  build_apk_debug: melos exec --scope=app -- "flutter build apk --debug"
+  build_apk_release: melos exec --scope=app -- "flutter build apk --release"
+  build_appbundle: melos exec --scope=app -- "flutter build appbundle"
+  build_ios: melos exec --scope=app -- "flutter build ios"
+  build_web: melos exec --scope=app -- "flutter build web"
+
+  # App running
+  run_debug: melos exec --scope=app -- "flutter run --debug"
+  run_profile: melos exec --scope=app -- "flutter run --profile"
+  run_release: melos exec --scope=app -- "flutter run --release"
+
+  # Combined workflows
+  bootstrap:
+    run: |
+      melos clean
+      melos bootstrap
+      melos run build_all
+    description: "Full project setup (clean + dependencies + build)"
+
+  check_all:
+    run: |
+      melos run format
+      melos run analyze
+      melos run test
+    description: "Complete code quality check (format + analyze + test)"
+
+  pre_commit:
+    run: |
+      melos run format_fix
+      melos run analyze
+    description: "Pre-commit checks (format + analyze)"
+
+  ci_workflow:
+    run: |
+      melos clean
+      melos bootstrap
+      melos run build_all
+      melos run analyze
+      melos run test
+    description: "CI/CD workflow"
+
+  fresh_start:
+    run: |
+      melos run clean_all
+      melos run clean_build
+      melos bootstrap
+      melos run build_all
+    description: "Complete fresh start (clean everything + rebuild)"

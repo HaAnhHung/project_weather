@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../base/bloc/app_bloc.dart';
 import '../base/bloc/app_state.dart';
 import '../utils/weather_utils.dart';
@@ -57,6 +58,7 @@ class ModernForecastSection extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 0),
       child: Row(
@@ -81,14 +83,14 @@ class ModernForecastSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Weather Forecast',
+                  l10n.weatherForecast,
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 if (forecast != null && forecast!.isNotEmpty)
                   Text(
-                    'Next ${_getDaysCount(forecast!)} days',
+                    '${l10n.next} ${_getDaysCount(forecast!)} ${(_getDaysCount(forecast!) > 1 ? l10n.days : l10n.day)}',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -103,36 +105,36 @@ class ModernForecastSection extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     if (isLoading) {
+      final l10n = AppLocalizations.of(context)!;
       return Container(
         height: 200.h,
         padding: EdgeInsets.all(20.w),
-        child: const ModernLoadingWidget(
-          message: 'Loading forecast...',
-          showShimmer: false,
-        ),
+        child: ModernLoadingWidget(message: l10n.loading, showShimmer: false),
       );
     }
 
     if (error != null) {
+      final l10n = AppLocalizations.of(context)!;
       return Container(
         height: 200.h,
         padding: EdgeInsets.all(20.w),
         child: ModernErrorWidget(
-          message: 'Failed to load forecast',
+          message: l10n.failedToLoadForecast,
           subtitle: error,
           onRetry: onRetry,
-          retryText: 'Retry',
+          retryText: l10n.retry,
         ),
       );
     }
 
     if (forecast == null || forecast!.isEmpty) {
+      final l10n = AppLocalizations.of(context)!;
       return Container(
         height: 160.h,
         padding: EdgeInsets.all(20.w),
-        child: const ModernEmptyWidget(
-          message: 'No forecast data',
-          subtitle: 'Search for a city to view weather forecast',
+        child: ModernEmptyWidget(
+          message: l10n.noDataAvailable,
+          subtitle: l10n.searchForCityToViewForecast,
           icon: Icons.cloud_off,
         ),
       );
@@ -162,7 +164,8 @@ class ModernForecastSection extends StatelessWidget {
       children:
           limitedDays.map((dayKey) {
             final dayForecasts = groupedByDay[dayKey]!;
-            return _buildDayForecastCard(context, dayKey, dayForecasts);
+            final l10n = AppLocalizations.of(context)!;
+            return _buildDayForecastCard(context, dayKey, dayForecasts, l10n);
           }).toList(),
     );
   }
@@ -171,6 +174,7 @@ class ModernForecastSection extends StatelessWidget {
     BuildContext context,
     String dayKey,
     List<WeatherEntity> dayForecasts,
+    AppLocalizations l10n,
   ) {
     final representativeWeather = dayForecasts.first;
     final date = DateTime.parse(dayKey);
@@ -217,7 +221,9 @@ class ModernForecastSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isToday ? 'Today' : WeatherUtils.formatDayName(date),
+                        isToday
+                            ? l10n.today
+                            : WeatherUtils.formatDayName(date, l10n),
                         style: Theme.of(
                           context,
                         ).textTheme.titleMedium?.copyWith(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain/domain.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../base/bloc/app_bloc.dart';
 import '../base/bloc/app_state.dart';
 import '../resource/theme/weather_theme.dart';
@@ -22,6 +23,8 @@ class ModernWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       child: Stack(
@@ -58,7 +61,7 @@ class ModernWeatherCard extends StatelessWidget {
               ),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.2),
-                width: 1.5,
+                width: 1.5.responsive(),
               ),
             ),
             child: SingleChildScrollView(
@@ -74,7 +77,7 @@ class ModernWeatherCard extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.9),
                         size: 16.sp,
                       ),
-                      SizedBox(width: 4.w),
+                      SizedBox(width: 4.0.responsive()),
                       Expanded(
                         child: Text(
                           weather.city,
@@ -87,7 +90,7 @@ class ModernWeatherCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        WeatherUtils.formatDate(weather.date),
+                        WeatherUtils.formatDate(weather.date, l10n),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Colors.white.withValues(alpha: 0.8),
                         ),
@@ -140,7 +143,7 @@ class ModernWeatherCard extends StatelessWidget {
                             ),
                             SizedBox(height: 2.h),
                             Text(
-                              WeatherUtils.getTimeOfDay(weather.date),
+                              WeatherUtils.getTimeOfDay(weather.date, l10n),
                               style: Theme.of(
                                 context,
                               ).textTheme.bodySmall?.copyWith(
@@ -172,7 +175,7 @@ class ModernWeatherCard extends StatelessWidget {
                         Expanded(
                           child: _buildActionButton(
                             icon: Icons.visibility,
-                            label: 'Details',
+                            label: l10n.viewDetails,
                             onPressed: onViewDetails!,
                           ),
                         ),
@@ -182,7 +185,7 @@ class ModernWeatherCard extends StatelessWidget {
                         Expanded(
                           child: _buildActionButton(
                             icon: Icons.share,
-                            label: 'Share',
+                            label: l10n.shareWeather,
                             onPressed: onShare!,
                           ),
                         ),

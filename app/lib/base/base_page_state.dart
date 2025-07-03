@@ -1,3 +1,12 @@
+/// 🏗️ Base Page State - Base class cho tất cả screens
+///
+/// Cung cấp:
+/// - Auto DI injection cho BLoCs
+/// - Exception handling chung
+/// - Loading overlay management
+/// - Navigation và logging utilities
+/// - Common UI patterns
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,10 +21,12 @@ import 'bloc/common/common_state.dart';
 import 'exception_handler/exception_handler.dart';
 import 'exception_handler/exception_message_mapper.dart';
 
+/// Base state với logging mixin
 abstract class BasePageState<T extends StatefulWidget, B extends BaseBloc>
     extends BasePageStateDelegate<T, B>
     with LogMixin {}
 
+/// Core base state implementation
 abstract class BasePageStateDelegate<
   T extends StatefulWidget,
   B extends BaseBloc

@@ -1,3 +1,10 @@
+/// 🚀 Splash BLoC - Quản lý flow khởi động app
+///
+/// Chức năng:
+/// - Kiểm tra và yêu cầu location permission
+/// - Quản lý trạng thái splash screen
+/// - Navigate to main screen sau khi init xong
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
@@ -5,6 +12,7 @@ import '../../../base/bloc/base_bloc.dart';
 import 'splash_event.dart';
 import 'splash_state.dart';
 
+/// Splash BLoC với dependency injection
 @Injectable()
 class SplashBloc extends BaseBloc<SplashEvent, SplashState> {
   SplashBloc() : super(const SplashState.initial()) {
@@ -12,6 +20,7 @@ class SplashBloc extends BaseBloc<SplashEvent, SplashState> {
     on<SplashPermissionRequested>(_onSplashPermissionRequested);
   }
 
+  /// Handle khi splash bắt đầu
   Future<void> _onSplashStarted(
     SplashStarted event,
     Emitter<SplashState> emit,

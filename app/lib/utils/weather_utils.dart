@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeatherIcons {
   static IconData getWeatherIcon(String description) {
@@ -66,16 +67,16 @@ class WeatherIcons {
 }
 
 class WeatherUtils {
-  static String formatDate(DateTime date) {
+  static String formatDate(DateTime date, AppLocalizations l10n) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = today.add(const Duration(days: 1));
     final dateToCheck = DateTime(date.year, date.month, date.day);
 
     if (dateToCheck == today) {
-      return 'Today';
+      return l10n.today;
     } else if (dateToCheck == tomorrow) {
-      return 'Tomorrow';
+      return l10n.tomorrow;
     } else {
       return DateFormat('MMM dd').format(date);
     }
@@ -85,17 +86,36 @@ class WeatherUtils {
     return DateFormat('HH:mm').format(dateTime);
   }
 
-  static String formatDayName(DateTime date) {
+  static String formatDayName(DateTime date, AppLocalizations l10n) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final dateToCheck = DateTime(date.year, date.month, date.day);
 
     if (dateToCheck == today) {
-      return 'Today';
+      return l10n.today;
     } else if (dateToCheck == today.add(const Duration(days: 1))) {
-      return 'Tomorrow';
+      return l10n.tomorrow;
     } else {
-      return DateFormat('EEEE').format(date);
+      // Use localized weekday names
+      final weekday = date.weekday;
+      switch (weekday) {
+        case DateTime.monday:
+          return l10n.monday;
+        case DateTime.tuesday:
+          return l10n.tuesday;
+        case DateTime.wednesday:
+          return l10n.wednesday;
+        case DateTime.thursday:
+          return l10n.thursday;
+        case DateTime.friday:
+          return l10n.friday;
+        case DateTime.saturday:
+          return l10n.saturday;
+        case DateTime.sunday:
+          return l10n.sunday;
+        default:
+          return DateFormat('EEEE').format(date);
+      }
     }
   }
 
@@ -108,17 +128,17 @@ class WeatherUtils {
     }
   }
 
-  static String getTimeOfDay(DateTime dateTime) {
+  static String getTimeOfDay(DateTime dateTime, AppLocalizations l10n) {
     final hour = dateTime.hour;
 
     if (hour >= 5 && hour < 12) {
-      return 'Morning';
+      return l10n.morning;
     } else if (hour >= 12 && hour < 17) {
-      return 'Afternoon';
+      return l10n.afternoon;
     } else if (hour >= 17 && hour < 21) {
-      return 'Evening';
+      return l10n.evening;
     } else {
-      return 'Night';
+      return l10n.night;
     }
   }
 
@@ -151,29 +171,33 @@ class WeatherUtils {
     return uniqueDays.length;
   }
 
-  static String getFeelsLikeDescription(double temperature, double feelsLike) {
+  static String getFeelsLikeDescription(
+    double temperature,
+    double feelsLike,
+    AppLocalizations l10n,
+  ) {
     final diff = feelsLike - temperature;
 
     if (diff > 5) {
-      return 'Feels warmer';
+      return l10n.feelsWarmer;
     } else if (diff < -5) {
-      return 'Feels cooler';
+      return l10n.feelsCooler;
     } else {
-      return 'Feels about right';
+      return l10n.feelsAboutRight;
     }
   }
 
-  static String getUVIndexDescription(int uvIndex) {
+  static String getUVIndexDescription(int uvIndex, AppLocalizations l10n) {
     if (uvIndex <= 2) {
-      return 'Low';
+      return l10n.uvIndexLow;
     } else if (uvIndex <= 5) {
-      return 'Moderate';
+      return l10n.uvIndexModerate;
     } else if (uvIndex <= 7) {
-      return 'High';
+      return l10n.uvIndexHigh;
     } else if (uvIndex <= 10) {
-      return 'Very High';
+      return l10n.uvIndexVeryHigh;
     } else {
-      return 'Extreme';
+      return l10n.uvIndexExtreme;
     }
   }
 

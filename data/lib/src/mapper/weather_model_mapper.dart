@@ -1,5 +1,5 @@
 import 'package:domain/domain.dart';
-import 'weather_model.dart';
+import '../model/weather_model.dart';
 
 class WeatherModelMapper {
   WeatherEntity mapToEntity(WeatherModel model) {

@@ -1,9 +1,17 @@
+/// 🎯 Weather Use Cases - Business logic layer
+///
+/// Chứa:
+/// - GetCurrentWeather: Lấy thời tiết hiện tại
+/// - Get7DayForecast: Lấy dự báo 7 ngày
+/// - Clean Architecture pattern với dependency injection
+
 import 'package:injectable/injectable.dart';
 import '../repository/weather_repository.dart';
 import 'base/future/base_future_use_case.dart';
 import 'get_weather_input.dart';
 import 'get_weather_output.dart';
 
+/// Use case để lấy thời tiết hiện tại
 @injectable
 class GetCurrentWeather
     extends BaseFutureUseCase<GetWeatherInput, GetWeatherOutput> {

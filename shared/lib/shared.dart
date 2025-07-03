@@ -23,3 +23,4 @@ export 'src/helper/function/function.dart';
 export 'src/mixin/log_mixin.dart';
 export 'src/di/di.dart';
 export 'src/utils/log_utils.dart';
+export 'src/service/weather_translation_service.dart';
